@@ -48,7 +48,6 @@ public class PatternMatchParensBenchmark extends Benchmark {
 	}
 
 	public static void main(String[] args) {
-		// CaliperMain.main(PatternMatchParensBenchmark.class, new String[] { "-Dsize=10,100,1000,10000" });
-		CaliperMain.main(PatternMatchParensBenchmark.class, new String[] { "-p" });
+		CaliperMain.main(PatternMatchParensBenchmark.class, new String[] { "-Dsize=10,100,1000,10000" });
 	}
 }
