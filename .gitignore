@@ -1,3 +1,11 @@
-/bin/
-/target/
-/.settings/
+# Eclipse
+.project
+.classpath
+.settings/
+
+# IntelliJ IDEA
+.idea
+*.iml
+
+# Maven
+target/
