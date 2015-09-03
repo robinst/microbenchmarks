@@ -1,29 +1,33 @@
 package org.nibor.microbenchmarks;
 
-import com.google.caliper.Benchmark;
-import com.google.caliper.runner.CaliperMain;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-public class StringFormatOrConcatBenchmark extends Benchmark {
+public class StringFormatOrConcatBenchmark {
 
-	public int timeFormat(int reps) {
+	private static final int i = 1;
+
+	public static void main(String[] args) throws Exception {
+		Options options = new OptionsBuilder().include(StringFormatOrConcatBenchmark.class.getSimpleName()).build();
+		new Runner(options).run();
+	}
+
+	@Benchmark
+	public int timeFormat() {
 		int count = 0;
-		for (int i = 0; i < reps; i++) {
-			String formatted = String.format("%s-%s", i, i + 1);
-			count += formatted.length();
-		}
+		String formatted = String.format("%s-%s", i, i + 1);
+		count += formatted.length();
 		return count;
 	}
 
-	public int timeConcat(int reps) {
+	@Benchmark
+	public int timeConcat() {
 		int count = 0;
-		for (int i = 0; i < reps; i++) {
-			String formatted = (i) + "-" + (i + 1);
-			count += formatted.length();
-		}
+		String formatted = (i) + "-" + (i + 1);
+		count += formatted.length();
 		return count;
 	}
 
-	public static void main(String[] args) {
-		CaliperMain.main(StringFormatOrConcatBenchmark.class, new String[] {});
-	}
 }
