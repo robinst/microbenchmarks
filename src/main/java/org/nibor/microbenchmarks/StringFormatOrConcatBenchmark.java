@@ -7,27 +7,27 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 public class StringFormatOrConcatBenchmark {
 
-	private static final int i = 1;
+    private static final int i = 1;
 
-	public static void main(String[] args) throws Exception {
-		Options options = new OptionsBuilder().include(StringFormatOrConcatBenchmark.class.getSimpleName()).build();
-		new Runner(options).run();
-	}
+    public static void main(String[] args) throws Exception {
+        Options options = new OptionsBuilder().include(StringFormatOrConcatBenchmark.class.getSimpleName()).build();
+        new Runner(options).run();
+    }
 
-	@Benchmark
-	public int timeFormat() {
-		int count = 0;
-		String formatted = String.format("%s-%s", i, i + 1);
-		count += formatted.length();
-		return count;
-	}
+    @Benchmark
+    public int timeFormat() {
+        int count = 0;
+        String formatted = String.format("%s-%s", i, i + 1);
+        count += formatted.length();
+        return count;
+    }
 
-	@Benchmark
-	public int timeConcat() {
-		int count = 0;
-		String formatted = (i) + "-" + (i + 1);
-		count += formatted.length();
-		return count;
-	}
+    @Benchmark
+    public int timeConcat() {
+        int count = 0;
+        String formatted = (i) + "-" + (i + 1);
+        count += formatted.length();
+        return count;
+    }
 
 }

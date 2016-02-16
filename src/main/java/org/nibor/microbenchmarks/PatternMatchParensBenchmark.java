@@ -15,41 +15,40 @@ import java.util.regex.Pattern;
 @State(Scope.Benchmark)
 public class PatternMatchParensBenchmark {
 
-	public static void main(String[] args) throws Exception {
-		Options options = new OptionsBuilder().include(PatternMatchParensBenchmark.class.getSimpleName()).build();
-		new Runner(options).run();
-	}
+    @Param({"10", "100", "1000", "10000"})
+    public int size;
+    private String input;
 
-	@Param({"10", "100", "1000", "10000"})
-	public int size;
+    public static void main(String[] args) throws Exception {
+        Options options = new OptionsBuilder().include(PatternMatchParensBenchmark.class.getSimpleName()).build();
+        new Runner(options).run();
+    }
 
-	private String input;
-
-	@Setup
-	public void setUp() throws Exception {
-		input = String.join(" ", Collections.nCopies(size, "$(test) text"));
-	}
-
-    @Benchmark
-	public int timeLazy() {
-		final Pattern pattern = Pattern.compile("\\$\\((.*?)\\)");
-		int count = 0;
-		final Matcher matcher = pattern.matcher(input);
-		while (matcher.find()) {
-			count++;
-		}
-		return count;
-	}
+    @Setup
+    public void setUp() throws Exception {
+        input = String.join(" ", Collections.nCopies(size, "$(test) text"));
+    }
 
     @Benchmark
-	public int timeDirect() {
-		final Pattern pattern = Pattern.compile("\\$\\(([^)]*)\\)");
-		int count = 0;
-		final Matcher matcher = pattern.matcher(input);
-		while (matcher.find()) {
-			count++;
-		}
-		return count;
-	}
+    public int timeLazy() {
+        final Pattern pattern = Pattern.compile("\\$\\((.*?)\\)");
+        int count = 0;
+        final Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            count++;
+        }
+        return count;
+    }
+
+    @Benchmark
+    public int timeDirect() {
+        final Pattern pattern = Pattern.compile("\\$\\(([^)]*)\\)");
+        int count = 0;
+        final Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            count++;
+        }
+        return count;
+    }
 
 }
